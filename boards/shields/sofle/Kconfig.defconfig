@@ -31,9 +31,6 @@ config WS2812_STRIP
 config EC11
     default y
 
-choice EC11_TRIGGER
-    default EC11_TRIGGER_GLOBAL_THREAD
-endchoice
 
 endif # SHIELD_SOFLE_LEFT
 
@@ -64,8 +61,5 @@ config WS2812_STRIP
 config EC11
     default y
 
-choice EC11_TRIGGER
-    default EC11_TRIGGER_GLOBAL_THREAD
-endchoice
 
 endif # SHIELD_SOFLE_RIGHT
