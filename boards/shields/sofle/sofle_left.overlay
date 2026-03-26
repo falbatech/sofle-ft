@@ -1,39 +1,35 @@
 // Sofle v2 — Lewa połowa (nice!nano v2)
-// Enkoder lewy + OLED + RGB 36 diód
 
 #include "sofle.dtsi"
 
 // ── OLED SSD1306 128×32 ────────────────────────
-&i2c0 {
+// Używa pro_micro_i2c (alias zdefiniowany w nice_nano_v2)
+&pro_micro_i2c {
     status = "okay";
-    ssd1306: ssd1306@3c {
+
+    oled: ssd1306@3c {
         compatible = "solomon,ssd1306fb";
         reg = <0x3c>;
-        label = "DISPLAY";
         width = <128>;
         height = <32>;
         segment-offset = <0>;
         page-offset = <0>;
         display-offset = <0>;
         multiplex-ratio = <31>;
+        com-invdir;
+        segment-remap;
         com-sequential;
         prechargep = <0x22>;
     };
 };
 
-// ── RGB WS2812 — 36 diód lewa strona ──────────
-// Data pin: P0.06 (D1 na nice!nano v2)
-&spi1 {
-    compatible = "nordic,nrf-spim";
+// ── RGB SK6812/WS2812 — 36 diód ───────────────
+// Używa pro_micro_spi (alias zdefiniowany w nice_nano_v2)
+&pro_micro_spi {
     status = "okay";
-    mosi-pin = <6>;
-    // Wymagane dummy piny dla nRF52840 SPI master
-    sck-pin = <5>;
-    miso-pin = <7>;
 
     led_strip: ws2812@0 {
         compatible = "worldsemi,ws2812-spi";
-        label = "WS2812";
         reg = <0>;
         spi-max-frequency = <4000000>;
         chain-length = <36>;
@@ -43,17 +39,6 @@
                          LED_COLOR_ID_RED
                          LED_COLOR_ID_BLUE>;
     };
-};
-
-// ── Enkoder lewy EC11 ──────────────────────────
-// A: P0.22 (F5), B: P0.24 (F4)
-left_encoder: encoder_left {
-    compatible = "alps,ec11";
-    label = "LEFT_ENCODER";
-    a-gpios = <&gpio0 22 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-    b-gpios = <&gpio0 24 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-    resolution = <4>;
-    status = "okay";
 };
 
 // ── Matryca klawiszy — lewa 5×6 ───────────────
@@ -77,7 +62,16 @@ left_encoder: encoder_left {
 
 / {
     chosen {
-        zmk,display = &ssd1306;
+        zmk,display = &oled;
         zmk,underglow = &led_strip;
+    };
+
+    // Enkoder lewy EC11
+    left_encoder: encoder_left {
+        compatible = "alps,ec11";
+        a-gpios = <&pro_micro 22 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        b-gpios = <&pro_micro 23 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        resolution = <4>;
+        status = "okay";
     };
 };
