@@ -1,10 +1,10 @@
 ---
 include:
-  - board: nice_nano/v2
+  - board: nice_nano/nrf52840/zmk
     shield: sofle_left
 
-  - board: nice_nano/v2
+  - board: nice_nano/nrf52840/zmk
     shield: sofle_right
 
-  - board: nice_nano/v2
+  - board: nice_nano/nrf52840/zmk
     shield: settings_reset
