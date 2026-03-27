@@ -23,7 +23,6 @@ config DISPLAY
 
 config ZMK_RGB_UNDERGLOW
     default y
-    select LED_STRIP
 
 config EC11
     default y
@@ -50,7 +49,6 @@ config DISPLAY
 
 config ZMK_RGB_UNDERGLOW
     default y
-    select LED_STRIP
 
 config EC11
     default y
