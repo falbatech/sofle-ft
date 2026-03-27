@@ -1,4 +1,4 @@
-if SHIELD_SOFLE_LEFT
+rZ _____if SHIELD_SOFLE_LEFT
 
 config ZMK_KEYBOARD_NAME
     default "Sofle"
@@ -51,9 +51,6 @@ config DISPLAY
 config ZMK_RGB_UNDERGLOW
     default y
     select LED_STRIP
-
-config WS2812_STRIP
-    default y
 
 config EC11
     default y
