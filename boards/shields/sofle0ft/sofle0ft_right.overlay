@@ -1,6 +1,6 @@
 // Sofle v2 — Prawa połowa (nice!nano v2)
 
-#include "sofle.dtsi"
+#include "sofle0ft.dtsi"
 
 // ── OLED SSD1306 128×32 ────────────────────────
 &pro_micro_i2c {
@@ -30,7 +30,7 @@
         compatible = "worldsemi,ws2812-spi";
         reg = <0>;
         spi-max-frequency = <4000000>;
-        chain-length = <36>;
+        chain-length = <30>;
         spi-one-frame = <0x70>;
         spi-zero-frame = <0x40>;
         color-mapping = <LED_COLOR_ID_GREEN
