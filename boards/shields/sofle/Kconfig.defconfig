@@ -9,6 +9,7 @@ config ZMK_SPLIT
 config ZMK_SPLIT_ROLE_CENTRAL
     default y
 
+# OLED tylko na central
 config ZMK_DISPLAY
     default y
 
@@ -21,37 +22,30 @@ config SSD1306
 config DISPLAY
     default y
 
+# RGB
 config ZMK_RGB_UNDERGLOW
     default y
 
+# Encoder
 config EC11
     default y
 
-
 endif # SHIELD_SOFLE_LEFT
+
 
 if SHIELD_SOFLE_RIGHT
 
 config ZMK_SPLIT
     default y
 
-config ZMK_DISPLAY
-    default y
+# ❌ BRAK DISPLAY na prawej!
 
-config I2C
-    default y
-
-config SSD1306
-    default y
-
-config DISPLAY
-    default y
-
+# RGB
 config ZMK_RGB_UNDERGLOW
     default y
 
+# Encoder
 config EC11
     default y
-
 
 endif # SHIELD_SOFLE_RIGHT
