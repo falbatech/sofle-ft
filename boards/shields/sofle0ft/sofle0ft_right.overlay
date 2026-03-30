@@ -19,7 +19,7 @@
         com-invdir;
         segment-remap;
         com-sequential;
-        prechargep = <0x22>;
+        precharge-period = <0x22>;
     };
 };
 
@@ -63,10 +63,8 @@
         zephyr,display = &oled;
         zmk,underglow = &led_strip;
     };
-};
 
-/ {
-    // PRAWY encoder (prawdziwy)
+    // Enkoder PRAWY (aktywny)
     right_encoder: encoder_right {
         compatible = "alps,ec11";
         a-gpios = <&pro_micro 16 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
@@ -75,7 +73,7 @@
         status = "okay";
     };
 
-    // LEWY encoder (dummy)
+    // Enkoder LEWY (dummy)
     left_encoder: encoder_left {
         compatible = "alps,ec11";
         a-gpios = <&pro_micro 0 GPIO_ACTIVE_HIGH>;
