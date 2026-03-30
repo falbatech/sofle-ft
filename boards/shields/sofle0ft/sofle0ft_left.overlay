@@ -67,9 +67,7 @@
         zephyr,display = &oled;
         zmk,underglow = &led_strip;
     };
-};
 
-    // Enkoder LEWY (prawdziwy)
     left_encoder: encoder_left {
         compatible = "alps,ec11";
         a-gpios = <&pro_micro 16 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
@@ -78,7 +76,6 @@
         status = "okay";
     };
 
-    // Enkoder PRAWY (dummy dla ZMK)
     right_encoder: encoder_right {
         compatible = "alps,ec11";
         a-gpios = <&pro_micro 0 GPIO_ACTIVE_HIGH>;
