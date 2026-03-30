@@ -60,25 +60,20 @@
 };
 
 / {
-    chosen {
-        zmk,display = &oled;
-        zmk,underglow = &led_strip;
-    };
-
-    // Enkoder prawy EC11
+    // PRAWY encoder (prawdziwy)
     right_encoder: encoder_right {
         compatible = "alps,ec11";
         a-gpios = <&pro_micro 22 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        b-gpios = <&pro_micro 24 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        b-gpios = <&pro_micro 23 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         resolution = <4>;
         status = "okay";
     };
-};
 
- // Dummy encoder żeby ZMK się nie wywalał
-    right_encoder: encoder_right {
+    // LEWY encoder (dummy)
+    left_encoder: encoder_left {
         compatible = "alps,ec11";
         a-gpios = <&pro_micro 0 GPIO_ACTIVE_HIGH>;
         b-gpios = <&pro_micro 0 GPIO_ACTIVE_HIGH>;
         status = "disabled";
     };
+};
