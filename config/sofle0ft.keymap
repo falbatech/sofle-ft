@@ -11,11 +11,6 @@
 #include <dt-bindings/zmk/outputs.h>
 
 / {
-    sensors {
-        compatible = "zmk,keymap-sensors";
-        sensors = <&left_encoder &right_encoder>;
-        triggers-per-rotation = <30>;
-    };
 
     macros {
         tm: tm {
