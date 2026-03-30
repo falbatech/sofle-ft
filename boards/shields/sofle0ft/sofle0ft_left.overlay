@@ -21,7 +21,7 @@
         com-invdir;
         segment-remap;
         com-sequential;
-        precharge-period = <0x22>;
+        prechargep = <0x22>;
     };
 };
 
