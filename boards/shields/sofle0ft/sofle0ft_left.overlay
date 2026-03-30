@@ -1,5 +1,7 @@
+
 // Sofle v2 — Lewa połowa (nice!nano v2)
 
+#include <dt-bindings/led/led.h>
 #include "sofle0ft.dtsi"
 
 // ── OLED SSD1306 128×32 ────────────────────────
