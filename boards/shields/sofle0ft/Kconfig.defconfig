@@ -27,8 +27,6 @@ config ZMK_RGB_UNDERGLOW
 config EC11
     default y
 
-config EC11_TRIGGER_GLOBAL_THREAD
-    default y
 
 endif # SHIELD_SOFLE0FT_LEFT
 
@@ -56,7 +54,5 @@ config ZMK_RGB_UNDERGLOW
 config EC11
     default y
 
-config EC11_TRIGGER_GLOBAL_THREAD
-    default y
 
 endif # SHIELD_SOFLE0FT_RIGHT
