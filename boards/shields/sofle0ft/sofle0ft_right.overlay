@@ -74,3 +74,11 @@
         status = "okay";
     };
 };
+
+ // Dummy encoder żeby ZMK się nie wywalał
+    right_encoder: encoder_right {
+        compatible = "alps,ec11";
+        a-gpios = <&pro_micro 0 GPIO_ACTIVE_HIGH>;
+        b-gpios = <&pro_micro 0 GPIO_ACTIVE_HIGH>;
+        status = "disabled";
+    };
