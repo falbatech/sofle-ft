@@ -64,9 +64,10 @@
 
 / {
     chosen {
-        zmk,display = &oled;
+        zephyr,display = &oled;
         zmk,underglow = &led_strip;
     };
+};
 
     // Enkoder LEWY (prawdziwy)
     left_encoder: encoder_left {
