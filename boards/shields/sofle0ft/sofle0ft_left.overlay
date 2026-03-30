@@ -68,19 +68,20 @@
         zmk,underglow = &led_strip;
     };
 
-    // Enkoder lewy EC11
+    // Enkoder LEWY (prawdziwy)
     left_encoder: encoder_left {
         compatible = "alps,ec11";
         a-gpios = <&pro_micro 22 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&pro_micro 23 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         resolution = <4>;
- // Dummy encoder żeby ZMK się nie wywalał
-    left_encoder: encoder_left {
+        status = "okay";
+    };
+
+    // Enkoder PRAWY (dummy dla ZMK)
+    right_encoder: encoder_right {
         compatible = "alps,ec11";
         a-gpios = <&pro_micro 0 GPIO_ACTIVE_HIGH>;
         b-gpios = <&pro_micro 0 GPIO_ACTIVE_HIGH>;
         status = "disabled";
-    };
-        status = "okay";
     };
 };
