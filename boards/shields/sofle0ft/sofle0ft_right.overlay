@@ -13,6 +13,7 @@
     // If pin 6 conflicts with your matrix, change to a free pin (e.g. pro_micro 16)
     led_strip: ws2812 {
         compatible = "worldsemi,ws2812-gpio";
+        status = "okay";
         in-gpios = <&pro_micro 6 GPIO_ACTIVE_HIGH>;
         chain-length = <30>;
         color-mapping = <LED_COLOR_ID_GREEN
