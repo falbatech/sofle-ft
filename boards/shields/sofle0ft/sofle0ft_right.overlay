@@ -1,9 +1,41 @@
-// Sofle v2 — Prawa połowa (nice!nano v2)
-
+// Sofle v2 — Right half (peripheral, nice!nano v2)
 #include <dt-bindings/led/led.h>
 #include "sofle0ft.dtsi"
 
-// ── OLED SSD1306 128×32 ────────────────────────
+// ── Chosen nodes + underglow + encoder ───────────────────────────────────────
+/ {
+    chosen {
+        zephyr,display = &oled;
+        zmk,underglow = &led_strip;
+    };
+
+    // WS2812 via GPIO — data pin: pro_micro 6 (P0.08 on nice!nano v2)
+    // If pin 6 conflicts with your matrix, change to a free pin (e.g. pro_micro 16)
+    led_strip: ws2812 {
+        compatible = "worldsemi,ws2812-gpio";
+        gpios = <&pro_micro 6 GPIO_ACTIVE_HIGH>;
+        chain-length = <30>;
+        color-mapping = <LED_COLOR_ID_GREEN
+                         LED_COLOR_ID_RED
+                         LED_COLOR_ID_BLUE>;
+    };
+
+    right_encoder: encoder_right {
+        compatible = "alps,ec11";
+        a-gpios = <&pro_micro 21 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        b-gpios = <&pro_micro 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        resolution = <4>;
+        status = "okay";
+    };
+
+    sensors: sensors {
+        compatible = "zmk,keymap-sensors";
+        sensors = <&right_encoder>;
+        triggers-per-rotation = <20>;
+    };
+};
+
+// ── OLED SSD1306 128x32 via I2C ──────────────────────────────────────────────
 &pro_micro_i2c {
     status = "okay";
 
@@ -23,24 +55,7 @@
     };
 };
 
-// ── RGB SK6812/WS2812 — 36 diód ───────────────
-&pro_micro_spi {
-    status = "okay";
-
-    led_strip: ws2812@0 {
-        compatible = "worldsemi,ws2812-spi";
-        reg = <0>;
-        spi-max-frequency = <4000000>;
-        chain-length = <30>;
-        spi-one-frame = <0x70>;
-        spi-zero-frame = <0x40>;
-        color-mapping = <LED_COLOR_ID_GREEN
-                         LED_COLOR_ID_RED
-                         LED_COLOR_ID_BLUE>;
-    };
-};
-
-// ── Matryca klawiszy — prawa 5×6 ──────────────
+// ── Key matrix — right 5x6 ───────────────────────────────────────────────────
 &kscan0 {
     col-gpios
         = <&pro_micro 9  GPIO_ACTIVE_HIGH>
@@ -57,27 +72,4 @@
         , <&pro_micro 18 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
         , <&pro_micro 15 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
         ;
-};
-/ {
-    chosen {
-        zephyr,display = &oled;
-        zmk,underglow = &led_strip;
-    };
-
-    // Enkoder PRAWY (aktywny)
-    right_encoder: encoder_right {
-        compatible = "alps,ec11";
-        a-gpios = <&pro_micro 16 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        b-gpios = <&pro_micro 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        resolution = <4>;
-        status = "okay";
-    };
-
-    // Enkoder LEWY (dummy)
-    left_encoder: encoder_left {
-        compatible = "alps,ec11";
-        a-gpios = <&pro_micro 0 GPIO_ACTIVE_HIGH>;
-        b-gpios = <&pro_micro 0 GPIO_ACTIVE_HIGH>;
-        status = "disabled";
-    };
 };
