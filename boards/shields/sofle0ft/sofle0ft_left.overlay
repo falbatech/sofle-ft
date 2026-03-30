@@ -1,24 +1,12 @@
-// Sofle v2 — Left half (central, nice!nano v2)
+// Sofle v2 - Left half (central, nice!nano v2)
 #include <dt-bindings/led/led.h>
 #include "sofle0ft.dtsi"
 
-// ── Chosen nodes + underglow + encoder ───────────────────────────────────────
+// CHOSEN nodes
 / {
     chosen {
         zephyr,display = &oled;
         zmk,underglow = &led_strip;
-    };
-
-    // WS2812 via GPIO — data pin: pro_micro 6 (P0.08 on nice!nano v2)
-    // If pin 6 conflicts with your matrix, change to a free pin (e.g. pro_micro 16)
-    led_strip: ws2812 {
-        compatible = "worldsemi,ws2812-gpio";
-        status = "okay";
-        in-gpios = <&pro_micro 6 GPIO_ACTIVE_HIGH>;
-        chain-length = <30>;
-        color-mapping = <LED_COLOR_ID_GREEN
-                         LED_COLOR_ID_RED
-                         LED_COLOR_ID_BLUE>;
     };
 
     left_encoder: encoder_left {
@@ -36,7 +24,23 @@
     };
 };
 
-// ── OLED SSD1306 128x32 via I2C ──────────────────────────────────────────────
+// WS2812 via GPIO - data pin P0.08 (pro_micro pin 6 on nice!nano v2)
+// Change gpio0 pin number to match your actual LED data wire
+&gpio0 {
+    status = "okay";
+
+    led_strip: ws2812 {
+        compatible = "worldsemi,ws2812-gpio";
+        status = "okay";
+        in-gpios = <&gpio0 8 GPIO_ACTIVE_HIGH>;
+        chain-length = <30>;
+        color-mapping = <LED_COLOR_ID_GREEN
+                         LED_COLOR_ID_RED
+                         LED_COLOR_ID_BLUE>;
+    };
+};
+
+// OLED SSD1306 128x32 via I2C
 &pro_micro_i2c {
     status = "okay";
 
@@ -56,7 +60,7 @@
     };
 };
 
-// ── Key matrix — left 5x6 ────────────────────────────────────────────────────
+// Key matrix - left 5x6
 &kscan0 {
     col-gpios
         = <&pro_micro 4  GPIO_ACTIVE_HIGH>
